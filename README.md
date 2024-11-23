@@ -23,7 +23,7 @@ A modern blog platform built with Next.js 14 that allows users to create, view a
 1. Clone the repository:
 
 ```
-git clone https://github.com/yourusername/blog-frontend
+git clone https://github.com/HrithikKeshri10/blog-frontend
 cd blog-frontend
 ```
 
@@ -45,55 +45,55 @@ NEXT_PUBLIC_API_URL=http://localhost:3200
 npm run dev
 ```
 
-##Development Choices
+## Development Choices
 
-###Authentication Strategy
+### Authentication Strategy
 
 JWT stored in HTTP-only cookies
 Protected routes
 Auth state management
 Auto-redirect for authenticated routes
 
-###User Interface
+### User Interface
 
 Clean, modern design
 Responsive layout
 Interactive components
 
-###State Management
+### State Management
 
 React hooks for local state
 Auth state in components
 Form handling
 Error management
 
-###Code Organization
+### Code Organization
 
 Next.js app directory structure
 Reusable components
 Consistent styling with Tailwind
 Clean separation of concerns
 
-##Available Commands
+## Available Commands
 
 - `npm install`: Install dependencies
 - `npm run dev`: Start development server
 
-##API Integration
+## API Integration
 The frontend integrates with these API endpoints:
-###Authentication
+### Authentication
 
 POST /api/auth/signup: Register new user
 POST /api/auth/login: User login
 POST /api/auth/logout: User logout
 
-###Posts
+### Posts
 
 GET /api/posts: Get all posts
 POST /api/post: Create new post
 GET /api/posts?author=authorId: Filter posts by author
 
-###Authentication Flow
+### Authentication Flow
 
 User submits login credentials
 Backend validates and sets JWT cookie
