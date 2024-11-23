@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Login() {
   const router = useRouter();
@@ -49,11 +50,16 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center min-h-screen relative">
-      <img
-        src="/image.png"
-        alt="background"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+      <div className="absolute inset-0">
+        <Image
+          src="/image.png"
+          alt="background"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+      </div>
       <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-10 bg-white p-8 rounded-lg w-96">
@@ -96,7 +102,7 @@ export default function Login() {
           </button>
 
           <p className="text-center mt-4">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/signup" className="text-blue-600 hover:text-blue-800">
               Sign Up
             </Link>
