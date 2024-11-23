@@ -28,7 +28,7 @@ export default function Home() {
             href="/login"
             className="border border-white text-white px-8 py-3 rounded"
           >
-            Sign In
+            Log In
           </Link>
         </div>
       </div>

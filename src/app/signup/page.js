@@ -12,34 +12,26 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
 
     try {
-      const response = await fetch(
-        "https://blog-backend-nine-swart.vercel.app/api/auth/signup",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-          credentials: "include",
-        }
-      );
+      const response = await fetch("http://localhost:3200/api/auth/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
 
       if (response.ok) {
         router.push("/login");
       } else {
         const data = await response.json();
-        setError(data.error || "Signup failed. Please try again.");
+        setError(data.error || "Signup failed");
       }
-    } catch (err) {
-      setError("Signup failed. Please try again.");
+    } catch {
+      setError("Signup failed");
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -61,7 +53,9 @@ export default function Signup() {
             name="email"
             placeholder="Email"
             value={formData.email}
-            onChange={handleChange}
+            onChange={(e) =>
+              setFormData({ ...formData, [e.target.name]: e.target.value })
+            }
             className="w-full p-3 border rounded"
             required
             disabled={isLoading}
@@ -72,7 +66,9 @@ export default function Signup() {
             name="password"
             placeholder="Password"
             value={formData.password}
-            onChange={handleChange}
+            onChange={(e) =>
+              setFormData({ ...formData, [e.target.name]: e.target.value })
+            }
             className="w-full p-3 border rounded"
             required
             disabled={isLoading}
@@ -81,9 +77,7 @@ export default function Signup() {
           <button
             type="submit"
             className={`w-full p-3 rounded text-white ${
-              isLoading
-                ? "bg-blue-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700"
+              isLoading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
             }`}
             disabled={isLoading}
           >

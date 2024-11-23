@@ -5,15 +5,14 @@ import { useEffect, useState } from "react";
 
 export default function Header() {
   const router = useRouter();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
+  const [auth, setAuth] = useState({ isLoggedIn: false, userEmail: "" });
 
   useEffect(() => {
     const checkAuth = () => {
-      const token = localStorage.getItem("token");
-      const email = localStorage.getItem("userEmail");
-      setIsLoggedIn(!!token);
-      setUserEmail(email || "");
+      setAuth({
+        isLoggedIn: !!localStorage.getItem("token"),
+        userEmail: localStorage.getItem("userEmail") || "",
+      });
     };
 
     checkAuth();
@@ -28,19 +27,15 @@ export default function Header() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(
-        "https://blog-backend-pfm3.vercel.app/api/auth/logout",
-        {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch("http://localhost:3200/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (response.ok) {
         localStorage.clear();
-        setIsLoggedIn(false);
-        setUserEmail("");
+        setAuth({ isLoggedIn: false, userEmail: "" });
         router.push("/");
       }
     } catch (error) {
@@ -61,9 +56,9 @@ export default function Header() {
               Home
             </Link>
 
-            {isLoggedIn ? (
+            {auth.isLoggedIn ? (
               <>
-                <span className="text-gray-600">Welcome, {userEmail}</span>
+                <span className="text-gray-600">Welcome, {auth.userEmail}</span>
                 <button
                   onClick={handleLogout}
                   className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"

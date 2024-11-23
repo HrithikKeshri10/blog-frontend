@@ -10,39 +10,32 @@ export default function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError("");
 
     try {
-      const response = await fetch(
-        "https://blog-backend-nine-swart.vercel.app/api/auth/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-          credentials: "include",
-        }
-      );
+      const response = await fetch("http://localhost:3200/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("userId", data.userId);
-        localStorage.setItem("userEmail", data.user?.email);
+        const { token, userId, user } = data;
+        localStorage.setItem("token", token);
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("userEmail", user?.email);
         window.dispatchEvent(new Event("loginSuccess"));
         router.push("/dashboard");
       } else {
-        setError(data.error || "Invalid email or password");
+        setError(data.error || "Invalid credentials");
       }
-    } catch (err) {
-      setError("Login failed. Please try again.");
+    } catch {
+      setError("Login failed");
     } finally {
       setIsLoading(false);
     }
@@ -72,7 +65,9 @@ export default function Login() {
             name="email"
             placeholder="Email"
             value={formData.email}
-            onChange={handleChange}
+            onChange={(e) =>
+              setFormData({ ...formData, [e.target.name]: e.target.value })
+            }
             className="w-full p-3 border rounded"
             required
             disabled={isLoading}
@@ -83,7 +78,9 @@ export default function Login() {
             name="password"
             placeholder="Password"
             value={formData.password}
-            onChange={handleChange}
+            onChange={(e) =>
+              setFormData({ ...formData, [e.target.name]: e.target.value })
+            }
             className="w-full p-3 border rounded"
             required
             disabled={isLoading}
@@ -92,9 +89,7 @@ export default function Login() {
           <button
             type="submit"
             className={`w-full p-3 rounded text-white ${
-              isLoading
-                ? "bg-blue-400 cursor-not-allowed"
-                : "bg-blue-600 hover:bg-blue-700"
+              isLoading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"
             }`}
             disabled={isLoading}
           >
