@@ -12,7 +12,7 @@ export default function Dashboard() {
   const fetchPosts = async () => {
     try {
       const response = await fetch(
-        "https://blog-backend-pfm3.vercel.app/api/posts",
+        "https://blog-backend-nine-swart.vercel.app/api/posts",
         {
           credentials: "include",
         }
@@ -38,7 +38,7 @@ export default function Dashboard() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://blog-backend-pfm3.vercel.app/api/post",
+        "https://blog-backend-nine-swart.vercel.app/api/post",
         {
           method: "POST",
           credentials: "include",

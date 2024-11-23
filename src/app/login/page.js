@@ -21,7 +21,7 @@ export default function Login() {
 
     try {
       const response = await fetch(
-        "https://blog-backend-pfm3.vercel.app/api/auth/login",
+        "https://blog-backend-nine-swart.vercel.app/api/auth/login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
