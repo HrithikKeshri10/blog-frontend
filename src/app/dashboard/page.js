@@ -136,6 +136,10 @@ export default function Dashboard() {
           <h2 className="text-2xl font-bold text-white mb-6">Posts</h2>
           {isLoading ? (
             <div className="text-white text-center">Loading posts...</div>
+          ) : filteredPosts.length === 0 ? (
+            <div className="bg-white/90 p-6 rounded-lg shadow text-center">
+              <p className="text-gray-700">No posts available</p>
+            </div>
           ) : (
             <div className="space-y-4">
               {filteredPosts.map((post) => (
